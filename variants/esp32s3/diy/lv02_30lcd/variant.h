@@ -14,10 +14,56 @@
 #undef GPS_TX_PIN
 
 // ========================================
-// Display - temporarily disabled
+// Display configuration
 // ========================================
 
-#define HAS_SCREEN 0
+#define HAS_SCREEN 1
+#define USE_TFTDISPLAY 1
+#define VARIANT_DISPLAY_DRIVER 1
+
+#define TFT_WIDTH 170
+#define TFT_HEIGHT 320
+#define SCREEN_ROTATE
+
+#define BRIGHTNESS_DEFAULT 128
+
+// ========================================
+// LCD power and backlight
+// ========================================
+
+#define TFT_POWER_EN 15
+#define TFT_BL 38
+#define TFT_BACKLIGHT_ON HIGH
+
+// ========================================
+// LCD control pins
+// ========================================
+
+#define TFT_CS  6
+#define TFT_DC  7
+#define TFT_RST 5
+#define TFT_WR  8
+#define TFT_RD  9
+
+// ========================================
+// LCD 8-bit parallel data bus
+// ========================================
+
+#define TFT_D0 39
+#define TFT_D1 40
+#define TFT_D2 41
+#define TFT_D3 42
+#define TFT_D4 45
+#define TFT_D5 46
+#define TFT_D6 47
+#define TFT_D7 48
+
+// ========================================
+// LCD bus frequencies
+// ========================================
+
+#define LCD_WRITE_FREQ 10000000
+#define LCD_READ_FREQ   8000000
 
 // ========================================
 // I2C - reserved for future peripherals
