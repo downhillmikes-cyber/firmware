@@ -73,12 +73,20 @@
 #define I2C_SDA 17
 #define I2C_SCL 18
 
-// ========================================
-// User button
-// ========================================
+// ==================================================
+// Physical buttons
+// ==================================================
 
+// Primary user button
 #define BUTTON_PIN 14
 #define BUTTON_NEED_PULLUP
+#define BUTTON_ACTIVE_LOW true
+#define BUTTON_ACTIVE_PULLUP true
+
+// Secondary user button (BOOT)
+#define ALT_BUTTON_PIN 0
+#define ALT_BUTTON_ACTIVE_LOW true
+#define ALT_BUTTON_ACTIVE_PULLUP true
 
 // ========================================
 // LoRa SPI interface
