@@ -20,6 +20,7 @@
 #define HAS_SCREEN 1
 #define USE_TFTDISPLAY 1
 #define VARIANT_DISPLAY_DRIVER 1
+#define HAS_SPI_TFT 1
 
 #define TFT_WIDTH 170
 #define TFT_HEIGHT 320
