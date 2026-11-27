@@ -28,6 +28,9 @@
 
 #define BRIGHTNESS_DEFAULT 128
 
+// Support configurable brightness through LovyanGFX
+#define TFT_CONFIGURABLE_BRIGHTNESS 1
+
 // ========================================
 // LCD power and backlight
 // ========================================

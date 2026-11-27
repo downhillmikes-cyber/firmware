@@ -892,8 +892,8 @@ void Screen::setup()
     ui->disableAllIndicators();            // Disable page indicator dots
     ui->getUiState()->userData = this;     // Allow static callbacks to access Screen instance
 
-    // Apply loaded brightness
-#if defined(ST7789_CS)
+   // Apply loaded brightness
+#if defined(ST7789_CS) || defined(TFT_CONFIGURABLE_BRIGHTNESS)
     static_cast<TFTDisplay *>(dispdev)->setDisplayBrightness(brightness);
 #elif defined(USE_OLED) || defined(USE_SSD1306) || defined(USE_SH1106) || defined(USE_SH1107) || defined(USE_SPISSD1306)
     dispdev->setBrightness(brightness);

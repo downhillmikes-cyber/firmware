@@ -1952,6 +1952,9 @@ static uint32_t sleepInMs = 0;
 #endif
 
 // Send a command to the display (low level function)
+#if defined(TFT_CONFIGURABLE_BRIGHTNESS)
+static uint8_t configuredTFTBrightness = BRIGHTNESS_DEFAULT;
+#endif
 void TFTDisplay::sendCommand(uint8_t com)
 {
     // handle display on/off directly
@@ -1976,7 +1979,7 @@ void TFTDisplay::sendCommand(uint8_t com)
             break;
         }
 #endif
-#if !defined(TFT_NV3031B)
+#if !defined(TFT_NV3031B) && !defined(TFT_CONFIGURABLE_BRIGHTNESS)
         backlightEnable->set(true);
 #endif
 #if ARCH_PORTDUINO
@@ -2037,9 +2040,11 @@ void TFTDisplay::sendCommand(uint8_t com)
 #ifdef UNPHONE
         unphone.backlight(true); // using unPhone library
 #endif
-#if defined(RAK14014) || defined(HELTEC_MESH_NODE_T096) || defined(HELTEC_MESH_NODE_T1)
-#elif !defined(M5STACK) && !defined(ST7789_CS) && !defined(TFT_NV3031B) &&                                                       \
-    !defined(USE_ARDUINO_GFX) // T-Deck gets brightness set in Screen.cpp in the handleSetOn function
+#if defined(TFT_CONFIGURABLE_BRIGHTNESS)
+        tft->setBrightness(configuredTFTBrightness);
+#elif defined(RAK14014) || defined(HELTEC_MESH_NODE_T096) || defined(HELTEC_MESH_NODE_T1)
+#elif !defined(M5STACK) && !defined(ST7789_CS) && !defined(TFT_NV3031B) && \
+    !defined(USE_ARDUINO_GFX)
         tft->setBrightness(172);
 #endif
         break;
@@ -2050,7 +2055,9 @@ void TFTDisplay::sendCommand(uint8_t com)
         panelAwake = false;
         wakeRepaintPending = false;
 #endif
+#if !defined(TFT_CONFIGURABLE_BRIGHTNESS)
         backlightEnable->set(false);
+#endif
 #if ARCH_PORTDUINO
         tft->clear();
         if (portduino_config.displayBacklight.pin > 0)
@@ -2110,8 +2117,12 @@ void TFTDisplay::sendCommand(uint8_t com)
 void TFTDisplay::setDisplayBrightness(uint8_t _brightness)
 {
 #if defined(RAK14014) || defined(HELTEC_MESH_NODE_T096) || defined(HELTEC_MESH_NODE_T1)
-    // todo
 #elif !defined(USE_ARDUINO_GFX)
+
+#if defined(TFT_CONFIGURABLE_BRIGHTNESS)
+    configuredTFTBrightness = _brightness;
+#endif
+
     tft->setBrightness(_brightness);
     LOG_DEBUG("Brightness is set to value: %i ", _brightness);
 #endif

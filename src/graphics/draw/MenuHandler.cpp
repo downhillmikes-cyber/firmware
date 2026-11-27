@@ -2472,7 +2472,7 @@ void menuHandler::BrightnessPickerMenu()
 #if defined(HELTEC_MESH_NODE_T114) || defined(HELTEC_VISION_MASTER_T190)
             // For HELTEC devices, use analogWrite to control backlight
             analogWrite(VTFT_LEDA, uiconfig.screen_brightness);
-#elif defined(ST7789_CS) || defined(ST7796_CS)
+#elif defined(ST7789_CS) || defined(ST7796_CS) || defined(TFT_CONFIGURABLE_BRIGHTNESS)
             static_cast<TFTDisplay *>(screen->getDisplayDevice())->setDisplayBrightness(uiconfig.screen_brightness);
 #elif defined(USE_OLED) || defined(USE_SSD1306) || defined(USE_SH1106) || defined(USE_SH1107)
             screen->getDisplayDevice()->setBrightness(uiconfig.screen_brightness);
@@ -2891,7 +2891,9 @@ void menuHandler::screenOptionsMenu()
 #else
     bool hasSupportBrightness = false;
 #endif
-
+    #if defined(TFT_CONFIGURABLE_BRIGHTNESS)
+    hasSupportBrightness = true;
+#endif
     enum optionsNumbers { Back, Brightness, FrameToggles, DisplayUnits, MessageBubbles, Theme };
     static const char *optionsArray[7] = {"Back"};
     static int optionsEnumArray[7] = {Back};
